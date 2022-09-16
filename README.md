@@ -1,6 +1,6 @@
-# YouTube Clone Blockchain [🔗](https://youtube-clone-blockchain.vercel.app/)
+# YouTube Clone Blockchain [🔗][website]
 
-A YouTube clone where all the videos are decentralized and directly stored in blockchain. Authentication is done using metamask.
+A YouTube clone where all the videos are decentralized and directly stored in blockchain. Authentication is done using metamask. To test the [website][website], you need test `Eth`. Get it free from [rinkebyfaucet](https://rinkebyfaucet.com/)
 
 # Tech Stack
 
@@ -55,3 +55,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+[website]: https://youtube-clone-blockchain.vercel.app/
