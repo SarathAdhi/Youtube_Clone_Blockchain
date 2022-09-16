@@ -41,18 +41,17 @@ const ViewProfile = () => {
   };
 
   useEffect(() => {
-    getUserDetails();
-
-    const getVideosInterval = setInterval(() => getChannelVideos(), 2000);
+    const interval = setInterval(() => {
+      getUserDetails();
+      getChannelVideos();
+    }, 2000);
 
     return () => {
-      clearInterval(getVideosInterval);
+      clearInterval(interval);
     };
   }, [currentAccount]);
 
   const isNewUser = !userDetails.username;
-
-  // console.log(userDetails);
 
   return (
     <PageLayout title="My Profile" className="gap-10">

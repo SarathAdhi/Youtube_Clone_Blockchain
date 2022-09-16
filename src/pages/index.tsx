@@ -39,8 +39,6 @@ const Home: NextPage = () => {
       : video
   );
 
-  console.log(filteredVideos);
-
   return (
     <PageLayout title="Home" className="">
       {isLoading && (

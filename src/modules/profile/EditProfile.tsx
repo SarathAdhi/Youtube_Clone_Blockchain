@@ -8,7 +8,6 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { User } from "types/user";
-import * as y from "yup";
 
 type Props = {
   buttonClassName?: string;
@@ -24,14 +23,6 @@ const EditProfile: React.FC<Props> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [{ currentAccount }] = useRecoilState(_loginDetails);
-
-  // const schema = y.object().shape({
-  //   name: y.string().required("Username is required"),
-  //   channelName: y.string().required("Channel name is required"),
-  //   profileImage: y.string().required("Profile image is required"),
-  //   coverImage: y.string().required("Cover image is required"),
-  //   walletId: y.string().required("Wallet id is required"),
-  // });
 
   const initialValues = {
     ...userDetails,
@@ -51,16 +42,11 @@ const EditProfile: React.FC<Props> = ({
     >
       <Form
         initialValues={initialValues}
-        // schema={schema}
         onSubmit={async (values) => {
-          const isChannelExist = await isChannelNameExist(values.channelName);
-
-          if (!isChannelExist)
-            await createOrUpdateUserDetails(
-              values,
-              isNewUser ? "create" : "update"
-            );
-          else toast.error("Channel name already exist");
+          await createOrUpdateUserDetails(
+            values,
+            isNewUser ? "create" : "update"
+          );
 
           setIsModalOpen(false);
         }}

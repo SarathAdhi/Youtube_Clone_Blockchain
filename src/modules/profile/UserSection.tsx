@@ -41,8 +41,6 @@ const UserSection: React.FC<Props> = ({
     (sub) => sub.toLowerCase() === myAddress.toLowerCase()
   );
 
-  console.log("-->", isUserAlreadySubscribed);
-
   const handleSubscribe = async () => {
     await addSubscribe(id);
   };

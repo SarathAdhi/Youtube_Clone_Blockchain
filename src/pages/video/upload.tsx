@@ -82,8 +82,6 @@ const Upload = () => {
             cids: [...values.videoCID, ...values.thumbnailCID],
           };
 
-          console.log(newValues);
-
           await uploadVideo(newValues);
           reset();
           router.replace("/");

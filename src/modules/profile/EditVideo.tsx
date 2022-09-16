@@ -50,7 +50,6 @@ const EditVideo: React.FC<Props> = ({
         schema={schema}
         onSubmit={async (values) => {
           const data = await updateVideo({ ...values, id: videoValues.id });
-          console.log(data);
 
           setIsModalOpen(false);
         }}

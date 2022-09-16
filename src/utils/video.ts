@@ -11,6 +11,9 @@ type Error = {
 
 const uid = new ShortUniqueId({ length: 10 });
 
+const ShowToast = (message: string) =>
+  toast.loading(`Waiting for transaction to be confirmed. ${message}`);
+
 const videoContractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
 
 const showErrorToast = (message: string) => {
@@ -42,6 +45,8 @@ export const getContractDetails = () => {
       showErrorToast("Ethereum object doesn't exist");
     }
   } catch (error) {
+    const err = error as Error;
+    showErrorToast(err.message);
     console.log(error);
   }
 };
@@ -53,6 +58,14 @@ export const createOrUpdateUserDetails = async (
   const VideoContract = getContractDetails();
 
   if (method === "create") {
+    const isChannelExist = await isChannelNameExist(data.channelName);
+
+    if (isChannelExist) {
+      return toast.error("Channel name already exist");
+    }
+
+    const toastId = ShowToast("Creating user details");
+
     return await VideoContract?.createUser(
       data.username,
       data.channelName,
@@ -60,8 +73,11 @@ export const createOrUpdateUserDetails = async (
       data.coverImage
     )
       .then((data: User) => data)
-      .catch((error: Error) => showErrorToast(error.message));
+      .catch((error: Error) => showErrorToast(error.message))
+      .finally(() => toast.dismiss(toastId));
   }
+
+  const toastId = ShowToast("Updating user details");
 
   return await VideoContract?.updateUser(
     data.username,
@@ -71,7 +87,8 @@ export const createOrUpdateUserDetails = async (
     data.walletId
   )
     .then((data: User) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const getMyProfile = async () => {
@@ -93,6 +110,8 @@ export const getUserProfile = async (address: string) => {
 export const uploadVideo = async (data: Video) => {
   const VideoContract = getContractDetails();
 
+  const toastId = ShowToast("Uploading the Video.");
+
   return await VideoContract?.uploadVideo(
     uid(),
     data.title,
@@ -100,11 +119,14 @@ export const uploadVideo = async (data: Video) => {
     data.description
   )
     .then((data: Video) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const updateVideo = async (video: Video) => {
   const VideoContract = getContractDetails();
+
+  const toastId = ShowToast("Updating the Video.");
 
   return await VideoContract?.updateVideo(
     video.id,
@@ -112,23 +134,30 @@ export const updateVideo = async (video: Video) => {
     video.description
   )
     .then((data: Video) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const addSubscribe = async (id: User["id"]) => {
   const VideoContract = getContractDetails();
 
+  const toastId = ShowToast("Subscribing to the Video.");
+
   return await VideoContract?.addSubscribe(id)
     .then((data: any) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const deleteVideo = async (uuid: string) => {
   const VideoContract = getContractDetails();
 
+  const toastId = ShowToast("Deleting the Video.");
+
   return await VideoContract?.deleteVideo(uuid)
     .then((data: any) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const isChannelNameExist = async (channelName: User["channelName"]) => {
@@ -158,23 +187,32 @@ export const getVideoByUuid = async (uuid: Video["uuid"]) => {
 export const addViews = async (id: Video["id"]) => {
   const VideoContract = getContractDetails();
 
+  const toastId = ShowToast("Pay to watch the video.");
+
   return await VideoContract?.addViews(id)
     .then((data: any) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const addLikes = async (id: Video["id"]) => {
   const VideoContract = getContractDetails();
 
+  const toastId = ShowToast("Adding your like to the Video.");
+
   return await VideoContract?.addLikes(id)
     .then((data: any) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
 
 export const addDisLikes = async (id: Video["id"]) => {
   const VideoContract = getContractDetails();
 
+  const toastId = ShowToast("Adding your dislike to the Video.");
+
   return await VideoContract?.addDisLikes(id)
     .then((data: any) => data)
-    .catch((error: Error) => showErrorToast(error.message));
+    .catch((error: Error) => showErrorToast(error.message))
+    .finally(() => toast.dismiss(toastId));
 };
