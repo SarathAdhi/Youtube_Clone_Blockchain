@@ -1,3 +1,7 @@
+# YouTube Clone Blockchain [🔗](https://youtube-clone-blockchain.vercel.app/)
+
+A YouTube clone where all the videos are decentralized and directly stored in blockchain. Authentication is done using metamask.
+
 # Tech Stack
 
 - [Nextjs](https://nextjs.org/)
@@ -18,7 +22,7 @@
    - Copy the contract address from the terminal.
    - paste it in the `.env` file
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 
