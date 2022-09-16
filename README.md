@@ -8,6 +8,7 @@ A YouTube clone where all the videos are decentralized and directly stored in bl
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Recoil - State Management](https://recoiljs.org/)
 - [Truffle](https://trufflesuite.com/)
+- [Ethersjs](https://docs.ethers.io/v5/)
 
 # Languages
 
