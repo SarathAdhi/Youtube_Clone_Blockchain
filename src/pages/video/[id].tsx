@@ -29,14 +29,14 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { IsAuthProps } from "types/page";
 import { User } from "types/user";
-import { Video, VideoProps } from "types/video";
+import { VideoProps } from "types/video";
 import { showWarningAlert } from "@utils/alert";
 
 const ViewVideo = ({ isAuth }: IsAuthProps) => {
   const router = useRouter();
   const { id } = router.query;
   const [videoDetails, setVideoDetails] = useState<VideoProps | null>(null);
-  const [isAllowed, setIsAllowed] = useState(true);
+  const [isAllowed, setIsAllowed] = useState(false);
   const [userDetails, setUserDetails] = useState<User>();
 
   const [allVideos] = useRecoilState(_allVideos);
@@ -59,8 +59,8 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
     setVideoDetails(data);
     getUserDetails(data.owner);
 
-    // const views = await addViewsAndAllow(data?.id, data?.views.toNumber());
-    // setVideoDetails({ ...data, views });
+    const views = await addViewsAndAllow(data?.id, data?.views.toNumber());
+    setVideoDetails({ ...data, views });
   };
 
   useEffect(() => {

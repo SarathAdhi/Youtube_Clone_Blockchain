@@ -4,6 +4,7 @@ import Button from "@elements/Button";
 import { ExploreSvg, HamBurgerMenu, HomeSvg } from "@svgs/YoutubeSvgs";
 import clsx from "clsx";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export const Navlinks = ({
   isSlideOver = false,
@@ -26,6 +27,7 @@ export const Navlinks = ({
 
     <LinkedItem
       href="/"
+      onClick={() => toast("Coming Soon")}
       className={clsx(
         "flex items-center",
         isSlideOver
