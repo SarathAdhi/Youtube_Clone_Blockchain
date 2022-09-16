@@ -2,7 +2,7 @@ import UserLoadingAnimation from "@components/Loading/UserLoadingAnimation";
 import Button from "@elements/Button";
 import { H2, Label } from "@elements/Text";
 import { BadgeCheckIcon } from "@heroicons/react/solid";
-import { userDetails as _userDetails } from "@utils/recoil";
+import { loginDetails, userDetails as _userDetails } from "@utils/recoil";
 import { addSubscribe } from "@utils/video";
 import clsx from "clsx";
 import React from "react";
@@ -24,7 +24,7 @@ const UserSection: React.FC<Props> = ({
   id,
   subscribers,
 }) => {
-  const [{ walletId: myAddress }] = useRecoilState(_userDetails);
+  const [{ currentAccount }] = useRecoilState(loginDetails);
 
   const userDetails = {
     id,
@@ -36,10 +36,11 @@ const UserSection: React.FC<Props> = ({
     subscribers,
   };
 
-  const isUserProfile = myAddress?.toLowerCase() === walletId?.toLowerCase();
+  const isUserProfile =
+    currentAccount?.toLowerCase() === walletId?.toLowerCase();
 
   const isUserAlreadySubscribed = subscribers?.some(
-    (sub) => sub.toLowerCase() === myAddress.toLowerCase()
+    (sub) => sub.toLowerCase() === currentAccount.toLowerCase()
   );
 
   const handleSubscribe = async () => {

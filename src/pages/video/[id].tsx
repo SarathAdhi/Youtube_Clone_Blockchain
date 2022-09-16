@@ -15,6 +15,7 @@ import {
 import PageLayout from "@layouts/PageLayout";
 import {
   allVideos as _allVideos,
+  loginDetails,
   userDetails as _userDetails,
 } from "@utils/recoil";
 import {
@@ -42,7 +43,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
   const [userDetails, setUserDetails] = useState<User>();
 
   const [allVideos] = useRecoilState(_allVideos);
-  const [{ walletId }] = useRecoilState(_userDetails);
+  const [{ currentAccount }] = useRecoilState(loginDetails);
 
   const addViewsAndAllow = async (id: any, view: number) => {
     const result = await addViews(id);
@@ -83,7 +84,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
 
           setVideoDetails({
             ...videoDetails,
-            likes: [...videoDetails.likes, walletId],
+            likes: [...videoDetails.likes, currentAccount],
           });
           return;
         }
@@ -92,7 +93,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
 
         setVideoDetails({
           ...videoDetails,
-          dislikes: [...videoDetails.dislikes, walletId],
+          dislikes: [...videoDetails.dislikes, currentAccount],
         });
       }
     );
@@ -114,18 +115,18 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
   } = videoDetails;
 
   const isUserLikedTheVideo = likes.some(
-    (id) => walletId.toLowerCase() === id.toLowerCase()
+    (id) => currentAccount.toLowerCase() === id.toLowerCase()
   );
 
   const isUserDisLikedTheVideo = dislikes.some(
-    (id) => walletId.toLowerCase() === id.toLowerCase()
+    (id) => currentAccount.toLowerCase() === id.toLowerCase()
   );
 
   const isUserAllowedToLikeOrDislike =
     isUserLikedTheVideo || isUserDisLikedTheVideo;
 
   const isUserAlreadySubscribed = userDetails?.subscribers?.some(
-    (sub) => sub.toLowerCase() === walletId.toLowerCase()
+    (sub) => sub.toLowerCase() === currentAccount.toLowerCase()
   );
 
   const video = `https://${cids[0]}.ipfs.dweb.link/${cids[1]}`;
@@ -152,7 +153,9 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
 
                   <div className="flex flex-col justify-between gap-5">
                     <Button
-                      onClick={handleSubscribe}
+                      onClick={() => {
+                        if (!isUserAlreadySubscribed) handleSubscribe();
+                      }}
                       className="px-2 py-1 bg-red-600 rounded-md"
                       disabled={isUserAlreadySubscribed}
                     >
@@ -229,7 +232,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
                 getVideoById(false);
                 toast.success("Refreshed");
               }}
-              className="fixed bottom-2 right-2 border-2 border-green-500 px-2 py-1 rounded-md"
+              className="fixed bottom-2 right-2 border-2 border-green-500 bg-black px-2 py-1 rounded-md"
               Icon={RefreshIcon}
             >
               Refresh
