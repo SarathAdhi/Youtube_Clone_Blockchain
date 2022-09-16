@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import ShortUniqueId from "short-unique-id";
 import { User } from "types/user";
 import { Video } from "types/video";
-import videoContract from "../../build/contracts/Youtube.json";
+import videoContract from "../../build/contracts/Youtube";
 
 type Error = {
   message: string;
@@ -64,7 +64,7 @@ export const createOrUpdateUserDetails = async (
       return toast.error("Channel name already exist");
     }
 
-    const toastId = ShowToast("Creating user details");
+    const toastId = ShowToast("Creating new user.");
 
     return await VideoContract?.createUser(
       data.username,
@@ -77,7 +77,7 @@ export const createOrUpdateUserDetails = async (
       .finally(() => toast.dismiss(toastId));
   }
 
-  const toastId = ShowToast("Updating user details");
+  const toastId = ShowToast("Updating your details.");
 
   return await VideoContract?.updateUser(
     data.username,

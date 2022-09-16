@@ -6,6 +6,7 @@ import { H3, Label, P } from "@elements/Text";
 import {
   ThumbUpIcon as ThumbUpIconSL,
   ThumbDownIcon as ThumbDownIconSL,
+  RefreshIcon,
 } from "@heroicons/react/solid";
 import {
   ThumbUpIcon as ThumbUpIconOL,
@@ -31,6 +32,7 @@ import { IsAuthProps } from "types/page";
 import { User } from "types/user";
 import { VideoProps } from "types/video";
 import { showWarningAlert } from "@utils/alert";
+import toast from "react-hot-toast";
 
 const ViewVideo = ({ isAuth }: IsAuthProps) => {
   const router = useRouter();
@@ -54,18 +56,19 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
     setUserDetails(data);
   };
 
-  const getVideoById = async () => {
+  const getVideoById = async (payToWatch: boolean) => {
     const data = await getVideoByUuid(id as string);
     setVideoDetails(data);
     getUserDetails(data.owner);
 
-    const views = await addViewsAndAllow(data?.id, data?.views.toNumber());
-    setVideoDetails({ ...data, views });
+    if (payToWatch) {
+      const views = await addViewsAndAllow(data?.id, data?.views.toNumber());
+      setVideoDetails({ ...data, views });
+    }
   };
 
   useEffect(() => {
-    if (isAuth) getVideoById();
-    // else router.replace("/");
+    if (isAuth) getVideoById(true);
   }, [id, isAuth]);
 
   if (!id || !videoDetails) return <LoadingPage />;
@@ -208,7 +211,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
                   </LinkedItem>
                 </div>
 
-                <P>{description}</P>
+                <P className="whitespace-pre-wrap">{description}</P>
               </div>
 
               <div className="col-span-2 w-full flex flex-col gap-5">
@@ -219,6 +222,19 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
               </div>
             </div>
           </div>
+
+          {isAllowed && (
+            <Button
+              onClick={() => {
+                getVideoById(false);
+                toast.success("Refreshed");
+              }}
+              className="fixed bottom-2 right-2 border-2 border-green-500 px-2 py-1 rounded-md"
+              Icon={RefreshIcon}
+            >
+              Refresh
+            </Button>
+          )}
         </PageLayout>
       ) : (
         <LoadingPage>

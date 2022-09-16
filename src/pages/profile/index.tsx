@@ -54,7 +54,7 @@ const ViewProfile = () => {
   const isNewUser = !userDetails.username;
 
   return (
-    <PageLayout title="My Profile" className="gap-10">
+    <PageLayout title="My Profile" className="gap-5">
       <UserSection isNewUser={isNewUser} {...userDetails} />
 
       {isLoading && <Loading className="w-6 h-6 mx-auto" />}

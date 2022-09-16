@@ -1,6 +1,7 @@
 import UserLoadingAnimation from "@components/Loading/UserLoadingAnimation";
 import Button from "@elements/Button";
 import { H2, Label } from "@elements/Text";
+import { BadgeCheckIcon } from "@heroicons/react/solid";
 import { userDetails as _userDetails } from "@utils/recoil";
 import { addSubscribe } from "@utils/video";
 import clsx from "clsx";
@@ -45,6 +46,8 @@ const UserSection: React.FC<Props> = ({
     await addSubscribe(id);
   };
 
+  const isCEO = channelName === "SarathYT";
+
   return (
     <div className="relative bg-[#111] grid gap-5 rounded-lg overflow-hidden">
       <img
@@ -77,7 +80,19 @@ const UserSection: React.FC<Props> = ({
               )}
 
               <div>
-                <H2>{username}</H2>
+                <H2 className="flex items-center gap-2">
+                  <span>{username}</span>
+
+                  {isCEO && (
+                    <div className="relative group">
+                      <span className="hidden group-hover:block top-0.5 ml-8 w-[117px] absolute text-sm">
+                        {"Verified & Founder"}
+                      </span>
+
+                      <BadgeCheckIcon className="w-6 h-6 text-sky-500" />
+                    </div>
+                  )}
+                </H2>
                 {channelName && <Label>Channel Name: {channelName}</Label>}
                 {<Label>{subscribers.length} subscribers</Label>}
               </div>
@@ -85,7 +100,7 @@ const UserSection: React.FC<Props> = ({
 
             <Button
               onClick={() => {
-                if (!isUserProfile) handleSubscribe();
+                if (!isUserAlreadySubscribed) handleSubscribe();
               }}
               className="bg-red-600 px-2 py-1 rounded-sm"
             >
