@@ -2,7 +2,7 @@ import Form from "@components/form";
 import Modal from "@components/Modal";
 import Input from "@elements/Input";
 import TextArea from "@elements/Textarea";
-import { PencilIcon, TrashIcon } from "@heroicons/react/solid";
+import { PencilIcon } from "@heroicons/react/solid";
 import { loginDetails as _loginDetails } from "@utils/recoil";
 import { updateVideo } from "@utils/video";
 import { SelectedVideoProps } from "pages/profile";

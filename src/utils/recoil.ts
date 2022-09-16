@@ -1,14 +1,12 @@
 import { atom } from "recoil";
 import { User } from "types/user";
-import { Video } from "types/video";
+import { VideoProps } from "types/video";
 
 export type LoginDetails = {
   isCorrectNetwork: boolean;
   currentAccount: string;
   error?: string;
 };
-
-export type VideoDetails = Video & User;
 
 export const loginDetails = atom({
   key: "loginDetails",
@@ -26,5 +24,5 @@ export const userDetails = atom({
 
 export const allVideos = atom({
   key: "allVideos",
-  default: [] as VideoDetails[],
+  default: [] as VideoProps[],
 });

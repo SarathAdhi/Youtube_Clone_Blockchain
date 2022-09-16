@@ -9,12 +9,12 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { IsAuthProps } from "types/page";
 import { User } from "types/user";
-import { Video } from "types/video";
+import { Video, VideoProps } from "types/video";
 
 const ViewChannel = ({ isAuth }: IsAuthProps) => {
   const router = useRouter();
 
-  const [allVideos, setAllVideos] = useState<(Video & User)[]>([]);
+  const [allVideos, setAllVideos] = useState<VideoProps[]>([]);
   const [userDetails, setUserDetails] = useState<User | null>(null);
 
   const [{ channelName }] = useRecoilState(_userDetails);
@@ -27,7 +27,7 @@ const ViewChannel = ({ isAuth }: IsAuthProps) => {
   };
 
   const getChannelVideos = async () => {
-    const data: (Video & User)[] = await getAllVideos();
+    const data: VideoProps[] = await getAllVideos();
 
     const filterMyVideos = data.filter((video) => video.channelName === id);
 

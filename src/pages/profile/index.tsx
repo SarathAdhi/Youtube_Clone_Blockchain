@@ -7,7 +7,7 @@ import { getAllVideos, getMyProfile } from "@utils/video";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { User } from "types/user";
-import { Video } from "types/video";
+import { Video, VideoProps } from "types/video";
 
 export type SelectedVideoProps = {
   title: string;
@@ -21,10 +21,10 @@ const ViewProfile = () => {
   const [userDetails, setUserDetails] = useRecoilState(_userDetails);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [allVideos, setAllVideos] = useState<(Video & User)[]>([]);
+  const [allVideos, setAllVideos] = useState<VideoProps[]>([]);
 
   const getChannelVideos = async () => {
-    const data: (Video & User)[] = await getAllVideos();
+    const data: VideoProps[] = await getAllVideos();
 
     const filterMyVideos = data.filter(
       (video) => video.owner.toLowerCase() === currentAccount.toLowerCase()

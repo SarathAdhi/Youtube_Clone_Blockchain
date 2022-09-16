@@ -29,13 +29,13 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { IsAuthProps } from "types/page";
 import { User } from "types/user";
-import { Video } from "types/video";
+import { Video, VideoProps } from "types/video";
 import { showWarningAlert } from "@utils/alert";
 
 const ViewVideo = ({ isAuth }: IsAuthProps) => {
   const router = useRouter();
   const { id } = router.query;
-  const [videoDetails, setVideoDetails] = useState<(Video & User) | null>(null);
+  const [videoDetails, setVideoDetails] = useState<VideoProps | null>(null);
   const [isAllowed, setIsAllowed] = useState(true);
   const [userDetails, setUserDetails] = useState<User>();
 

@@ -21,8 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <RecoilRoot
-        children={<NewComponent Component={Component} {...pageProps} />}
-      />
+      // children={}
+      >
+        <NewComponent Component={Component} {...pageProps} />
+      </RecoilRoot>
       <Toaster position="bottom-center" reverseOrder={false} />
     </>
   );

@@ -47,10 +47,9 @@ const DropDownMenu: React.FC<Props> = ({
           <Menu.Items className="z-40 absolute right-0 mt-2 w-24 rounded-md bg-black focus:outline-none">
             <div className="px-1 py-1">
               {options.map((option) => (
-                <Menu.Item>
+                <Menu.Item key={option.name}>
                   {({ active }) => (
                     <Button
-                      key={option.name}
                       onClick={option.onClick}
                       className={clsx(
                         active ? "bg-gray-600 text-white" : "text-white",
