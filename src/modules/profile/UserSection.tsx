@@ -2,6 +2,7 @@ import UserLoadingAnimation from "@components/Loading/UserLoadingAnimation";
 import Button from "@elements/Button";
 import { H2, Label } from "@elements/Text";
 import { BadgeCheckIcon } from "@heroicons/react/solid";
+import { showWarningAlert } from "@utils/alert";
 import { loginDetails, userDetails as _userDetails } from "@utils/recoil";
 import { addSubscribe } from "@utils/video";
 import clsx from "clsx";
@@ -46,7 +47,13 @@ const UserSection: React.FC<Props> = ({
   );
 
   const handleSubscribe = async () => {
-    await addSubscribe(id);
+    showWarningAlert(
+      "NOTE",
+      `This action cannot be undone. Are you sure you want to subscribe to this channel?`,
+      async () => {
+        await addSubscribe(id);
+      }
+    );
   };
 
   const isCEO = channelName === "SarathYT";
@@ -107,6 +114,7 @@ const UserSection: React.FC<Props> = ({
                 if (!isUserAlreadySubscribed) handleSubscribe();
               }}
               className="bg-red-600 px-2 py-1 rounded-sm"
+              disabled={isUserProfile || isUserAlreadySubscribed}
             >
               {isUserAlreadySubscribed
                 ? "Subscribed"

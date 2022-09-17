@@ -40,9 +40,15 @@ const ViewChannel = ({ isAuth }: IsAuthProps) => {
   useEffect(() => {
     if (channelName === id) router.replace("/profile");
 
+    let interval: any;
+
     if (isAuth) {
-      getChannelVideos();
+      interval = setInterval(() => getChannelVideos(), 2000);
     }
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [id, isAuth]);
 
   if (allVideos.length === 0) return <LoadingPage />;
