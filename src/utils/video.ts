@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import ShortUniqueId from "short-unique-id";
 import { User } from "types/user";
 import { Video } from "types/video";
-import videoContract from "../../build/contracts/Youtube";
+import videoContract from "../../build/contracts/Youtube.json";
 
 type Error = {
   message: string;
