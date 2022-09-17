@@ -14,6 +14,7 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
 
 type Props = {
   title: string;
@@ -22,6 +23,8 @@ type Props = {
 };
 
 const PageLayout: React.FC<Props> = ({ title, className, children }) => {
+  const router = useRouter();
+
   const [loginDetails, setLoginDetails] = useRecoilState(_loginDetails);
   const [, setUserDetails] = useRecoilState(_userDetails);
 
@@ -41,6 +44,12 @@ const PageLayout: React.FC<Props> = ({ title, className, children }) => {
 
   useEffect(() => {
     const { ethereum } = window as any;
+
+    if (!ethereum) {
+      router.replace("/ethereum-not-found");
+      toast.error("Please install Metamask");
+      return;
+    }
 
     ethereum.on("accountsChanged", async () => {
       const data = await connectWallet();

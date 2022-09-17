@@ -5,9 +5,9 @@ type Props = {
   as?: "p" | "span" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "label";
   className?: string;
   title?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
-};
+} & React.HTMLAttributes<HTMLParagraphElement>;
 
 const Text: React.FC<Props> = ({
   as = "span",
