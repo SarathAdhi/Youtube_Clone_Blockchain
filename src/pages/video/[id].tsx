@@ -7,6 +7,7 @@ import {
   ThumbUpIcon as ThumbUpIconSL,
   ThumbDownIcon as ThumbDownIconSL,
   RefreshIcon,
+  ShareIcon,
 } from "@heroicons/react/solid";
 import {
   ThumbUpIcon as ThumbUpIconOL,
@@ -69,7 +70,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
   };
 
   useEffect(() => {
-    if (isAuth) getVideoById(true);
+    if (isAuth) getVideoById(false);
   }, [id, isAuth]);
 
   if (!id || !videoDetails) return <LoadingPage />;
@@ -190,6 +191,14 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
 
                         {dislikes.length}
                       </Button>
+
+                      <Button
+                        Icon={ShareIcon}
+                        onClick={() => {
+                          navigator.clipboard.writeText(window.location.href);
+                          toast.success("Copied to clipboard");
+                        }}
+                      />
                     </div>
                   </div>
                 </div>

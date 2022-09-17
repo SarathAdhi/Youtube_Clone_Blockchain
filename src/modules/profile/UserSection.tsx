@@ -12,6 +12,7 @@ import EditProfile from "./EditProfile";
 
 type Props = {
   isNewUser: boolean;
+  isProfilePage?: boolean;
 } & User;
 
 const UserSection: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const UserSection: React.FC<Props> = ({
   walletId,
   id,
   subscribers,
+  isProfilePage = false,
 }) => {
   const [{ currentAccount }] = useRecoilState(loginDetails);
 
@@ -63,6 +65,7 @@ const UserSection: React.FC<Props> = ({
             ? "object-contain py-10 animate-pulse border rounded-lg"
             : "object-cover"
         )}
+        referrerPolicy="no-referrer"
       />
 
       <div className="flex items-start gap-5 pb-5 px-5">
@@ -115,7 +118,7 @@ const UserSection: React.FC<Props> = ({
         )}
       </div>
 
-      {isUserProfile && (
+      {isProfilePage && (
         <EditProfile
           buttonClassName="absolute top-3 right-3"
           userDetails={userDetails}

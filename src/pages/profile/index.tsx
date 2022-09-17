@@ -55,7 +55,7 @@ const ViewProfile = () => {
 
   return (
     <PageLayout title="My Profile" className="gap-5">
-      <UserSection isNewUser={isNewUser} {...userDetails} />
+      <UserSection isProfilePage isNewUser={isNewUser} {...userDetails} />
 
       {isLoading && <Loading className="w-6 h-6 mx-auto" />}
 
