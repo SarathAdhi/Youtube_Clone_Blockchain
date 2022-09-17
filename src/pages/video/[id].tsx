@@ -70,7 +70,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
   };
 
   useEffect(() => {
-    if (isAuth) getVideoById(false);
+    if (isAuth) getVideoById(true);
   }, [id, isAuth]);
 
   if (!id || !videoDetails) return <LoadingPage />;
