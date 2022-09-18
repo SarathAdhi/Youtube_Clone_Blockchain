@@ -70,7 +70,6 @@ const VideoCard: React.FC<Props> = ({
     <div className="relative group">
       <LinkedItem
         href={`/video/${uuid}`}
-        key={id}
         className={clsx("w-full grid gap-3", isMini ? "grid-cols-5" : "")}
       >
         <img
