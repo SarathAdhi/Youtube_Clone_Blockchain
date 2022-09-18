@@ -16,12 +16,14 @@ export const connectWallet = async () => {
 
     if (chainId !== rinkbyChainId) {
       toast.error("You are not connected to the Rinkeby Testnet!");
-      return;
-    }
+      const details: LoginDetails = {
+        isCorrectNetwork: false,
+        currentAccount: "",
+        error: "Not connected to Rinkeby Testnet",
+      };
 
-    // const account = await ethereum.request({
-    //   method: "eth_requestAccounts",
-    // });
+      return details;
+    }
 
     const provider = new ethers.providers.Web3Provider(ethereum);
     const account = await provider.send("eth_requestAccounts", []);

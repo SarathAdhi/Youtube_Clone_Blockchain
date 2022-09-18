@@ -57,7 +57,6 @@ const PageLayout: React.FC<Props> = ({ title, className, children }) => {
       if (data) {
         setLoginDetails(data as LoginDetails);
         userProfile();
-        return;
       }
     });
 

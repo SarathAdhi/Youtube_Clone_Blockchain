@@ -19,12 +19,10 @@ const NewComponent: React.FC<Props> = ({ Component, ...pageProps }) => {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <RecoilRoot>
-        <NewComponent Component={Component} {...pageProps} />
-      </RecoilRoot>
+    <RecoilRoot>
+      <NewComponent Component={Component} {...pageProps} />
       <Toaster position="bottom-center" reverseOrder={false} />
-    </>
+    </RecoilRoot>
   );
 }
 
