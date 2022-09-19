@@ -18,12 +18,10 @@
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-drag-drop-files": "^2.3.7",
     "react-hot-toast": "^2.3.0",
     "recoil": "^0.7.5",
     "short-unique-id": "^4.4.4",
     "sweetalert2": "^11.4.30",
-    "web3.storage": "^4.4.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
