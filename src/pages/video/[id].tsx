@@ -106,7 +106,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
 
   const {
     title,
-    cids,
+    videoUrl,
     channelName,
     profileImage,
     views,
@@ -130,15 +130,13 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
     (sub) => sub.toLowerCase() === currentAccount.toLowerCase()
   );
 
-  const video = `https://${cids[0]}.ipfs.dweb.link/${cids[1]}`;
-
   return (
     <>
       {isAllowed ? (
         <PageLayout title={title} className="my-5">
           <div className="flex flex-col gap-5 items-center ">
             <video className="w-full h-full max-h-[80vh]" controls>
-              <source src={video} type="video/mp4" />
+              <source src={videoUrl} type="video/mp4" />
             </video>
 
             <div className="w-full max-w-screen-2xl grid lg:grid-cols-5 gap-10">
@@ -211,6 +209,7 @@ const ViewVideo = ({ isAuth }: IsAuthProps) => {
                     <img
                       src={profileImage}
                       className="w-10 h-10 rounded-full"
+                      alt={channelName}
                     />
 
                     <P className="cursor-pointer">

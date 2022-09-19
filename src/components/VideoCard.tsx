@@ -33,7 +33,7 @@ const VideoCard: React.FC<Props> = ({
   channelName,
   profileImage,
   handleEdit,
-  cids,
+  thumbnailUrl,
   owner,
   showOptions = false,
   isMini = false,
@@ -43,7 +43,6 @@ const VideoCard: React.FC<Props> = ({
   const [{ walletId }] = useRecoilState(userDetails);
 
   // const video = `https://${cids[0]}.ipfs.dweb.link/${cids[1]}`;
-  const thumbnail = `https://${cids[2]}.ipfs.dweb.link/${cids[3]}`;
 
   const deleteVideoById = async (uuid: string) => {
     await deleteVideo(uuid);
@@ -77,14 +76,19 @@ const VideoCard: React.FC<Props> = ({
           src={
             isLoading
               ? "https://c.tenor.com/sdd4YyHo-qUAAAAC/image-loading-loading.gif"
-              : thumbnail
+              : thumbnailUrl
           }
           onLoad={() => setIsLoading(false)}
+          alt={title}
         />
 
         <div className={clsx("flex gap-3", isMini ? "col-span-3" : "")}>
           {!isMini && (
-            <img src={profileImage} className="w-10 h-10 rounded-full" />
+            <img
+              src={profileImage}
+              className="w-10 h-10 rounded-full"
+              alt={channelName}
+            />
           )}
 
           <P className={clsx("w-full", isMini ? "flex flex-col" : "grid")}>

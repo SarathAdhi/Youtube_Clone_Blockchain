@@ -72,7 +72,7 @@ const UserSection: React.FC<Props> = ({
             ? "object-contain py-10 animate-pulse border rounded-lg"
             : "object-cover"
         )}
-        referrerPolicy="no-referrer"
+        alt={`Cover Image | ${channelName}`}
       />
 
       <div className="flex items-start gap-5 pb-5 px-5">
@@ -85,6 +85,7 @@ const UserSection: React.FC<Props> = ({
                 <img
                   src={profileImage}
                   className="w-24 h-24 rounded-full object-cover"
+                  alt={`Profile Image | ${channelName}`}
                 />
               ) : (
                 <span className="w-24 h-24 rounded-full bg-gray-700" />

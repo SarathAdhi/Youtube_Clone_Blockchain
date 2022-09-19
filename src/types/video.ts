@@ -6,7 +6,8 @@ export type Video = {
   owner: string;
   description: string;
   title: string;
-  cids: string[];
+  videoUrl: string;
+  thumbnailUrl: string;
   views: any;
   likes: string[];
   dislikes: string[];

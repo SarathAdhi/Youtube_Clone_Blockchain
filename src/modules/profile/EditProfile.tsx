@@ -1,11 +1,11 @@
 import Form from "@components/form";
 import Modal from "@components/Modal";
 import Input from "@elements/Input";
+import InputFile from "@elements/InputFile";
 import { PencilIcon } from "@heroicons/react/solid";
 import { loginDetails as _loginDetails } from "@utils/recoil";
-import { createOrUpdateUserDetails, isChannelNameExist } from "@utils/video";
+import { createOrUpdateUserDetails } from "@utils/video";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { User } from "types/user";
 
@@ -70,21 +70,9 @@ const EditProfile: React.FC<Props> = ({
           disabled={!isNewUser}
         />
 
-        <Input
-          label="Cover Image"
-          name="coverImage"
-          placeholder="Cover image link"
-          isDark
-          required
-        />
+        <InputFile label="Cover Image" name="coverImage" isDark required />
 
-        <Input
-          label="Profile Image"
-          name="profileImage"
-          placeholder="Profile image link"
-          required
-          isDark
-        />
+        <InputFile label="Profile Image" name="profileImage" isDark required />
 
         <Input label="Wallet Address" name="walletId" isDark disabled />
       </Form>

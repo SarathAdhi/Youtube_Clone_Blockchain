@@ -115,7 +115,8 @@ export const uploadVideo = async (data: Video) => {
   return await VideoContract?.uploadVideo(
     uid(),
     data.title,
-    data.cids,
+    data.videoUrl,
+    data.thumbnailUrl,
     data.description
   )
     .then((data: Video) => data)

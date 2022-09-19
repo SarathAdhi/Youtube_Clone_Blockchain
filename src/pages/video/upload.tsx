@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { showErrorAlert } from "@utils/alert";
 import { DownloadIcon } from "@heroicons/react/solid";
 import toast from "react-hot-toast";
+import { VIDEO_TYPES } from "@constants/index";
 
 const initialValues = {
   title: "",
@@ -28,8 +29,8 @@ const schema = y.object().shape({
     .string()
     .max(100, "Title must be below 100 characters")
     .required("Title is required"),
-  videoCID: y.array().required("Video is required"),
-  thumbnailCID: y.array().required("Thumbnail is required"),
+  videoUrl: y.string().required("Video is required"),
+  thumbnailUrl: y.string().required("Thumbnail is required"),
   description: y.string().required("Description is required"),
 });
 
@@ -69,20 +70,8 @@ const Upload = () => {
         initialValues={initialValues}
         schema={schema}
         onSubmit={async (values, reset) => {
-          if (
-            values.videoCID.length === 0 ||
-            values.thumbnailCID.length === 0
-          ) {
-            toast.error("Please upload video and thumbnail");
-            return;
-          }
+          await uploadVideo(values);
 
-          const newValues = {
-            ...values,
-            cids: [...values.videoCID, ...values.thumbnailCID],
-          };
-
-          await uploadVideo(newValues);
           reset();
           router.replace("/");
         }}
@@ -95,11 +84,16 @@ const Upload = () => {
           required
         />
 
-        <InputFile label="Upload your video" name="videoCID" required />
+        <InputFile
+          label="Upload your video"
+          name="videoUrl"
+          fileType={VIDEO_TYPES}
+          required
+        />
 
         <InputFile
           label="Upload your video thumbnail"
-          name="thumbnailCID"
+          name="thumbnailUrl"
           required
         />
 

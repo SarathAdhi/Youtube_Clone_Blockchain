@@ -6,7 +6,6 @@ import { loginDetails, userDetails as _userDetails } from "@utils/recoil";
 import { getAllVideos, getMyProfile } from "@utils/video";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { User } from "types/user";
 import { Video, VideoProps } from "types/video";
 
 export type SelectedVideoProps = {

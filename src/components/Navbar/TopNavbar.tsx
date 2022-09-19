@@ -12,7 +12,7 @@ import { Navlinks } from "./SideNavbar";
 
 const TopNavbar = () => {
   const router = useRouter();
-  const [{ profileImage }] = useRecoilState(userDetails);
+  const [{ profileImage, username }] = useRecoilState(userDetails);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -54,6 +54,7 @@ const TopNavbar = () => {
           <img
             src={profileImage || "/assets/blank_user_img.webp"}
             className="w-7 h-7 rounded-full"
+            alt={username}
           />
         </LinkedItem>
       </div>

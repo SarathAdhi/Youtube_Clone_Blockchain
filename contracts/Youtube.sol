@@ -17,7 +17,8 @@ contract Youtube {
         uint256 id;
         string uuid;
         string title;
-        string[] cids;
+        string videoUrl;
+        string thumbnailUrl;
         string description;
         uint256 views;
         address[] likes;
@@ -68,7 +69,8 @@ contract Youtube {
     function uploadVideo(
         string memory uuid,
         string memory title,
-        string[] memory cids,
+        string memory video,
+        string memory thumbnail,
         string memory description
     ) public {
         uint256 videoId = videos.length;
@@ -83,7 +85,8 @@ contract Youtube {
                 videoId,
                 uuid,
                 title,
-                cids,
+                video,
+                thumbnail,
                 description,
                 0,
                 emptyAddress,

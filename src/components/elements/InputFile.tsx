@@ -1,8 +1,10 @@
-import { useField, useFormikContext } from "formik";
+import { useFormikContext } from "formik";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { web3Client } from "@utils/web3Storage";
 import Loading from "@components/Loading";
+import { ipfsClient } from "@utils/ipfs-core";
+import { IMAGE_TYPES } from "@constants/.";
+import { showErrorAlert } from "@utils/alert";
 
 interface Props {
   name: string;
@@ -10,6 +12,7 @@ interface Props {
   label?: string;
   required?: boolean;
   isDark?: boolean;
+  fileType?: string[];
   getFileName?: (fileName: string) => void;
 }
 
@@ -20,6 +23,7 @@ const FileUpload: React.FC<Props> = ({
   required = false,
   isDark = false,
   getFileName,
+  fileType = IMAGE_TYPES,
   ...rest
 }) => {
   const { isSubmitting, setFieldValue } = useFormikContext();
@@ -31,8 +35,28 @@ const FileUpload: React.FC<Props> = ({
 
     getFileName?.(file[0].name); // If needed in future
 
-    const rootCid = await web3Client.put(file);
-    setFieldValue(name, [rootCid, file[0].name]);
+    const uploadedFileType = file[0].type;
+
+    const isCorrectFileType = fileType.includes(
+      uploadedFileType.toUpperCase().split("/")[1]
+    );
+
+    if (!isCorrectFileType) {
+      showErrorAlert(
+        "Please upload a valid file type",
+        `File type should be either ${fileType.join(", ")}`
+      );
+    } else {
+      try {
+        const client = await ipfsClient();
+        const { cid } = await client.add(file[0]);
+        const url = `https://ipfs.io/ipfs/${cid}`;
+        setFieldValue(name, url);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     setIsLoading(false);
   };
 
