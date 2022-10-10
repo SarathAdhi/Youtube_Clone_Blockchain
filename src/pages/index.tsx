@@ -1,7 +1,7 @@
-import LinkedItem from "@components/LinkedItem";
 import Loading from "@components/Loading";
 import VideoCard from "@components/VideoCard";
 import PageLayout from "@layouts/PageLayout";
+import { showWarningAlert } from "@utils/alert";
 import { allVideos as _allVideos, loginDetails } from "@utils/recoil";
 import { getAllVideos } from "@utils/video";
 import type { NextPage } from "next";
@@ -24,6 +24,16 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (currentAccount) {
       const fetchPollsInterval = setInterval(() => fetchAllVideos(), 2000);
+
+      const showWarning = localStorage.getItem("warning");
+      if (!showWarning)
+        showWarningAlert(
+          "NOTE",
+          "Loading images and videos may take some time because fetching from IPFS takes time. Please be patient.",
+          () => localStorage.setItem("warning", "true"),
+          "Ignore",
+          "Ok, got it!"
+        );
 
       return () => {
         clearInterval(fetchPollsInterval);
