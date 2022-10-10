@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 
   const searchParams = router.query.search as string;
 
-  const filteredVideos = allVideos.filter((video) =>
+  const filteredVideos = allVideos?.filter((video) =>
     searchParams
       ? video.title.toLowerCase().includes(searchParams.toLowerCase())
       : video

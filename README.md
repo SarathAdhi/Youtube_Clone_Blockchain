@@ -1,6 +1,6 @@
 # YouTube Clone Blockchain [🔗][website]
 
-A YouTube clone where all the videos are decentralized and directly stored in blockchain. Authentication is done using metamask. To test the [website][website], you need test `Eth`. Get it free from [rinkebyfaucet](https://rinkebyfaucet.com/)
+A YouTube clone where all the videos are decentralized and directly stored in blockchain. Authentication is done using metamask. To test the [website][website], you need test `Eth`. Get it free from [Sepolia-faucet](https://sepolia-faucet.pk910.de/)
 
 # Tech Stack
 

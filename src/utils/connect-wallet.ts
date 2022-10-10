@@ -12,14 +12,18 @@ export const connectWallet = async () => {
     }
 
     const chainId = await ethereum.request({ method: "eth_chainId" });
-    const rinkbyChainId = "0x4";
+
+    console.log(chainId);
+    const rinkbyChainId = "0xaa36a7";
+    // const rinkbyChainId = "0x4";
 
     if (chainId !== rinkbyChainId) {
-      toast.error("You are not connected to the Rinkeby Testnet!");
+      toast.error("You are not connected to the Sepolia Testnet!");
+
       const details: LoginDetails = {
         isCorrectNetwork: false,
         currentAccount: "",
-        error: "Not connected to Rinkeby Testnet",
+        error: "Not connected to Sepolia Testnet",
       };
 
       return details;
